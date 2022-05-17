@@ -8,6 +8,7 @@ class Select extends Db
     public $from;
     public $on;
     public $where;
+    public $orderBy;
     public $limit;
 
     public function __construct(string $fields = '*')
@@ -43,7 +44,15 @@ class Select extends Db
         return implode(' ', $array);
     }
 
-    public function limit(int $limit = 1) {
+    public function orderBy(string $field = '', string $order = 'ASC')
+    {
+        if (empty($field)) return $this;
+        $this->orderBy = "ORDER BY $field $order";
+        return $this;
+    }
+
+    public function limit(int $limit = 1)
+    {
         $this->limit = "LIMIT $limit";
         return $this;
     }
